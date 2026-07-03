@@ -1,0 +1,21 @@
+name: "Webhooks AutoConfig Action"
+description: "Subscribe to a webhook endpoint using AutoConfig"
+branding:
+  icon: "zap"
+  color: "blue"
+
+inputs:
+  autoconfig-token:
+    description: "AutoConfig token (auto_v1_...)"
+    required: true
+  endpoint:
+    description: "JSON object matching the schema for https://api.svix.com/docs#tag/Endpoint/operation/v1.endpoint.create"
+    required: true
+
+outputs:
+  endpoint:
+    description: "The created or updated endpoint"
+
+runs:
+  using: node20
+  main: dist/index.js
