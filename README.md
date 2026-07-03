@@ -7,15 +7,17 @@
 # Subscribe Webhook Endpoint with AutoConfig - GitHub Action
 
 This GitHub action configures a webhook endpoint using [Webhooks AutoConfig](https://docs.svix.com/receiving/webhooks-autoconfig).
+
 AutoConfig lets you declare your endpoint configuration in code, so it's always in sync with your code, without any manual changes in the webhooks management UI.
-For more information, check out [our docs](https://docs.svix.com/receiving/webhooks-autoconfig).
+
+For more information, check out [the docs](https://docs.svix.com/receiving/webhooks-autoconfig).
 
 ## Inputs
 
 ### `autoconfig-token`
 
 **Required**
-Your [AutoConfig token](https://docs.svix.com/receiving/webhooks-autoconfig#get-the-autoconfig-token) from the Svix Application Portal (`auto_v1_...`).
+Your [AutoConfig token](https://docs.svix.com/receiving/webhooks-autoconfig#get-the-autoconfig-token) from the webhooks management portal (`auto_v1_...`).
 
 ### `endpoint`
 
@@ -37,11 +39,15 @@ Example:
 
 ### `endpoint`
 
-The full configured endpoint returned by [`subscribe()`](https://docs.svix.com/receiving/webhooks-autoconfig#call-subscribe) ([`EndpointOut`](https://api.svix.com/docs#tag/Endpoint/operation/v1.endpoint.get)) as a JSON string.
+The configured endpoint ([`EndpointOut`](https://api.svix.com/docs#tag/Endpoint/operation/v1.endpoint.get)) as a JSON string.
 
 ## Usage
 
-To use this GitHub Action in your workflow, add the following step to your [CI/CD pipeline](https://docs.svix.com/receiving/webhooks-autoconfig#integrating-with-your-application):
+Before using this action, [create an endpoint](https://docs.svix.com/receiving/webhooks-autoconfig#create-an-endpoint) using AutoConfig and copy the token from the webhooks management portal:
+
+![AutoConfig token in the webhooks portal](docs/autoconfig-token.png)
+
+Add the following step to your CI/CD pipeline:
 
 ```yaml
 - name: Subscribe Webhook Endpoint with AutoConfig
@@ -55,10 +61,7 @@ To use this GitHub Action in your workflow, add the following step to your [CI/C
       }
 ```
 
-Before using this action, [create an endpoint](https://docs.svix.com/receiving/webhooks-autoconfig#create-an-endpoint) with AutoConfig as the configuration method and get the AutoConfig token.
-
 ## Documentation
 
 - [Webhooks AutoConfig guide](https://docs.svix.com/receiving/webhooks-autoconfig)
-- [Endpoint API reference](https://api.svix.com/docs#tag/Endpoint)
 - [Svix documentation](https://docs.svix.com)
