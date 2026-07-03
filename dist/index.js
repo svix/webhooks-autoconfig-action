@@ -38274,9 +38274,6 @@ function requireDist () {
 
 var distExports = requireDist();
 
-/**
- * Subscribe to a Svix webhook endpoint using AutoConfig.
- */
 async function run() {
     try {
         const token = coreExports.getInput("autoconfig-token", { required: true });
@@ -38290,7 +38287,7 @@ async function run() {
         }
         const webhook = new distExports.AutoConfig(token, endpoint);
         const result = await webhook.subscribe();
-        coreExports.info(`Subscribed endpoint ${result.id} → ${result.url}`);
+        coreExports.info(`Subscribed endpoint ${result.id} with URL ${result.url}`);
         coreExports.setOutput("endpoint", JSON.stringify(result));
     }
     catch (error) {
@@ -38303,9 +38300,5 @@ async function run() {
     }
 }
 
-/**
- * The entrypoint for the action. This file simply imports and runs the action's
- * main logic.
- */
 run();
 //# sourceMappingURL=index.js.map
