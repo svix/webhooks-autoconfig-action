@@ -1,0 +1,36 @@
+name: Test Action
+
+on:
+  workflow_dispatch:
+    inputs:
+      autoconfig-token:
+        required: false
+        type: string
+      url:
+        required: true
+        type: string
+        default: "https://example.com/webhooks"
+      eventType:
+        required: true
+        type: string
+        default: "invoice.paid"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run AutoConfig action
+        id: autoconfig
+        uses: ./
+        with:
+          autoconfig-token: ${{ inputs.autoconfig-token || secrets.AUTO_CONFIG_TOKEN }}
+          endpoint: |
+            {
+              "url": "${{ inputs.url }}",
+              "filterTypes": ["${{ inputs.eventType }}"]
+            }
+
+      - name: Print endpoint output
+        run: echo '${{ steps.autoconfig.outputs.endpoint }}'
