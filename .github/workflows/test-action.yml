@@ -4,16 +4,15 @@ on:
   workflow_dispatch:
     inputs:
       autoconfig-token:
-        required: false
+        description: "AutoConfig token (auto_v1_...)\n\nWARNING: Use a test token here, this test action will log it to the console."
+        required: true
         type: string
       url:
         required: true
         type: string
-        default: "https://example.com/webhooks"
       eventType:
         required: true
         type: string
-        default: "invoice.paid"
 
 jobs:
   test:
@@ -25,7 +24,7 @@ jobs:
         id: autoconfig
         uses: ./
         with:
-          autoconfig-token: ${{ inputs.autoconfig-token || secrets.AUTO_CONFIG_TOKEN }}
+          autoconfig-token: ${{ inputs.autoconfig-token }}
           endpoint: |
             {
               "url": "${{ inputs.url }}",
