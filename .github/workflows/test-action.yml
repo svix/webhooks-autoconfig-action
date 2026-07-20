@@ -1,0 +1,35 @@
+name: Test Action
+
+on:
+  workflow_dispatch:
+    inputs:
+      autoconfig-token:
+        description: "AutoConfig token (auto_v1_...)\n\nWARNING: Use a test token here, this test action will log it to the console."
+        required: true
+        type: string
+      url:
+        required: true
+        type: string
+      eventType:
+        required: true
+        type: string
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Run AutoConfig action
+        id: autoconfig
+        uses: ./
+        with:
+          autoconfig-token: ${{ inputs.autoconfig-token }}
+          endpoint: |
+            {
+              "url": "${{ inputs.url }}",
+              "filterTypes": ["${{ inputs.eventType }}"]
+            }
+
+      - name: Print endpoint output
+        run: echo '${{ steps.autoconfig.outputs.endpoint }}'
